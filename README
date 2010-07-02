@@ -4,5 +4,21 @@
     acfilter 基于发布于http://code.google.com/p/pysoft/上的acseg完成,原有代码发布的license为New BSD license;
     acfilter 仍使用New BSD lincense;
 3:
+    安装:
+    tar -xzf acfilter.tar.gz
+    cd acfilter
+    phpize
+    ./configure
+    make
+    sudo make install
+4:使用:
+    示例代码:
+    $ac=acfilter_new();
+    //也可以用acfilter_load_dict($ac,"/home/renlu/dict.txt");一次加入词库
+    acfilter_add_word($ac,"河边");
+    acfilter_prepare($ac);//prepare是必须的;
+    var_dump(acfilter_check_text($ac,"我们一起来到河边"));
+    acfilter_close($ac);
+5:
     有任何Bug,请发信给:xurenlu@gmail.com,谢谢！
 
