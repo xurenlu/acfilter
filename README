@@ -11,6 +11,8 @@
     ./configure
     make
     sudo make install
+    安装完之后请在php.ini里加上:
+    extension=acfilter.so 
 4:使用:
     示例代码:
     $ac=acfilter_new();
@@ -19,6 +21,7 @@
     acfilter_prepare($ac);//prepare是必须的;
     var_dump(acfilter_check_text($ac,"我们一起来到河边"));
     acfilter_close($ac);
+    具体可参见example.php;
 5:
     有任何Bug,请发信给:xurenlu@gmail.com,谢谢！
 
