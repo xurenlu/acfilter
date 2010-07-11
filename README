@@ -1,5 +1,6 @@
 1:
-    acfilter 用于实现查询某段文本中是否含有指定的词;在词库够大的情况下，能实现一定的分词的功能;
+    acfilter 用于实现查询某段文本中是否含有指定的词;在词库够大的情况下，
+    能实现一定的分词的功能;
 2:
     acfilter 基于发布于http://code.google.com/p/pysoft/ 上的acseg完成,原有代码发布的license为New BSD license;
     acfilter 仍使用New BSD lincense;
