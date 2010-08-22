@@ -254,6 +254,10 @@ PHP_FUNCTION(acfilter_add_word)
 	if (acindex) {
 		ZEND_FETCH_RESOURCE(acseg_index, acseg_index_t *, &acindex,acindex_id,le_acfilter_name, le_acfilter);
 	}
+	if(word_len==0){
+		RETURN_TRUE;
+		return;
+	}
 	acseg_str_t  phrase;
 	phrase.data=word;
 	phrase.len=word_len;

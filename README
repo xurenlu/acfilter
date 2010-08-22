@@ -1,6 +1,6 @@
 1:
-    acfilter 用于实现查询某段文本中是否含有指定的词;在词库够大的情况下，
-    能实现一定的分词的功能;
+    acfilter 用于实现查询某段文本中是否含有指定的词(当前禁词越来越多的情况下,
+    是有必要开发一个扩展来干这个了): ;在词库够大的情况下，能实现一定的分词的功能;
 2:
     acfilter 基于发布于http://code.google.com/p/pysoft/ 上的acseg完成,原有代码发布的license为New BSD license;
     acfilter 仍使用New BSD lincense;
@@ -17,11 +17,18 @@
 4:使用:
     示例代码:
     $ac=acfilter_new();
-    //也可以用acfilter_load_dict($ac,"/home/renlu/dict.txt");一次加入词库
+    var_dump($ac);
     acfilter_add_word($ac,"河边");
-    acfilter_prepare($ac);//prepare是必须的;
-    var_dump(acfilter_check_text($ac,"我们一起来到河边"));
+    acfilter_add_word($ac,"狗屎");
+    acfilter_add_word($ac,",");
+    acfilter_add_word($ac,"工信部");
+    acfilter_prepare($ac);
+    print_r(acfilter_check_text($ac,"曾经有一个很狗屎的部门,叫工信部,到河边自杀了"));
     acfilter_close($ac);
+    运行后输出为包含的各个禁词用空格连起来的一个字符串,如下所示:
+    resource(4) of type (Acfilter Index)
+    狗屎 , 工信部 , 河边
+
     具体可参见example.php;
 5:
     有任何Bug,请发信给:xurenlu@gmail.com,谢谢！
