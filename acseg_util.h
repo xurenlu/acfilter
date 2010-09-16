@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+#include "uchar.h"
 #include "mem_collector.h"
 
 

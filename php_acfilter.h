@@ -17,7 +17,6 @@
 */
 
 /* $Id: header 226204 2007-01-01 19:32:10Z iliaa $ */
-
 #ifndef PHP_ACFILTER_H
 #define PHP_ACFILTER_H
 

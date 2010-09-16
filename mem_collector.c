@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "mem_collector.h"
+#include "uchar.h"
 
 
 void *
