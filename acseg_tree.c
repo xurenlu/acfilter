@@ -157,7 +157,6 @@ acseg_index_load(acseg_index_t *acseg_index, const char *fpath)
 	int i, word_len;
 	char buf[64];
 	acseg_str_t phrase;
-
 	if (acseg_index == NULL){
 		return NULL;
 	}
@@ -165,10 +164,8 @@ acseg_index_load(acseg_index_t *acseg_index, const char *fpath)
 	if ((fp = fopen(fpath, "r")) == NULL) {
 		return NULL;
 	}
-
 	while (fgets(buf, sizeof(buf) - 1, fp) != NULL) {
 		word_len = strlen(buf);
-
 		for (i=0; i < word_len; i++){
 			if (buf[i] == '\n' || buf[i] == '\r'){
 				buf[i] = '\0';
@@ -176,14 +173,15 @@ acseg_index_load(acseg_index_t *acseg_index, const char *fpath)
 			}
 		}
 		word_len = strlen(buf);
-		
+	    if(word_len==0){
+            continue;
+        }
 		phrase.data = (u_char *) buf;
 		phrase.len = strlen(buf);
-
 		acseg_index_add(acseg_index, &phrase);
 	}
 	fclose(fp);
-
+    
 	return acseg_index;
 }
 
