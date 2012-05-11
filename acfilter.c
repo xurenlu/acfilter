@@ -299,11 +299,18 @@ PHP_FUNCTION(acfilter_check_text)
 	int argc = ZEND_NUM_ARGS();
 	int acindex_id = -1;
 	int text_len;
+    int max_seek=0;
 	zval *acindex = NULL;
 	acseg_index_t * acseg_index;
 
-	if (zend_parse_parameters(argc TSRMLS_CC, "rs", &acindex, &text, &text_len) == FAILURE) 
-		return;
+	if (zend_parse_parameters(argc TSRMLS_CC, "rsl", &acindex, &text, &text_len,&max_seek) == FAILURE)
+    {
+	    if (zend_parse_parameters(argc TSRMLS_CC, "rs", &acindex, &text, &text_len) == FAILURE){
+            return;
+        }else{
+            max_seek=1;
+        }
+    }
 
 	if (acindex) {
 		ZEND_FETCH_RESOURCE(acseg_index, acseg_index_t *, &acindex,acindex_id,le_acfilter_name, le_acfilter);
@@ -313,7 +320,7 @@ PHP_FUNCTION(acfilter_check_text)
 	acseg_str_t acseg_text;
 	acseg_text.data=text;
 	acseg_text.len=text_len;
-	seg_result = acseg_full_seg(acseg_index, &acseg_text);
+	seg_result = acseg_full_seg(acseg_index, &acseg_text,max_seek);
 	acseg_str_t *phrase;
 	acseg_list_item_t *result_item;
 	result_item = seg_result->list->first;

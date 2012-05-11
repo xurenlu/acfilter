@@ -349,32 +349,48 @@ add_to_result(acseg_result_t *result, acseg_list_t *addon_list)
 }
 
 acseg_result_t *
-acseg_full_seg(acseg_index_t *acseg_index, acseg_str_t *text)
+acseg_full_seg(acseg_index_t *acseg_index, acseg_str_t *text,int max_seek)
 {
-	int j;
-
-	acseg_str_t atom;
-
+	int j,current_pos,tmp_j;
+	acseg_str_t atom,atom2,tmp_atom;
 	acseg_result_t *seg_result;
-
-	acseg_index_item_t *index_item, *s_index_item;
-
+	acseg_index_item_t *index_item, *s_index_item,* tmp_s_index_item;
 	seg_result = acseg_result_init();
-
-	
+//    int max_seek=5;
+    int seeks=0;
 	if (acseg_index->state != AC_INDEX_FIXED) {
 		return seg_result;
 	}
-	
-
-	j = 0;
+	current_pos=j = 0;
 	index_item = acseg_index->root;
 	while (j < text->len) {
+        seeks=0;
 		atom.data = &(text->data[j]);
 		atom.len = get_mblen( ((u_char) atom.data[0]) );
-				
-		s_index_item = find_child_index_item(index_item, &atom);
-
+		tmp_atom = atom;	
+		tmp_s_index_item = s_index_item = find_child_index_item(index_item, &atom);
+        while(
+                tmp_s_index_item ==NULL &&
+                seeks<max_seek && current_pos <(text->len)){
+            printf("search : seeks :%d\n",seeks);
+            atom2.data = &(text->data[current_pos+tmp_atom.len]);
+            atom2.len = get_mblen( ((u_char) atom2.data[0]) );
+            printf("atom2:\n");
+            print_atom(&atom2);
+            printf("\n");
+		    tmp_s_index_item = find_child_index_item(index_item, &atom2);
+            seeks++;
+            if(tmp_s_index_item!=NULL){
+                current_pos = j = current_pos +tmp_atom.len; 
+                atom = atom2;
+                s_index_item = tmp_s_index_item;
+                break;
+            }
+            else{
+                current_pos =  current_pos +tmp_atom.len; 
+                tmp_atom = atom2;
+            }
+        }
 		while(s_index_item == NULL) {
 			if (index_item == acseg_index->root) {
 				s_index_item = index_item;
@@ -390,7 +406,7 @@ acseg_full_seg(acseg_index_t *acseg_index, acseg_str_t *text)
 
 		add_to_result(seg_result, index_item->extra_outputs);
 
-		j = j + atom.len;
+		current_pos = tmp_j =  j = j + atom.len;
 	}
 
 	return seg_result;

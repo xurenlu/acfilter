@@ -54,7 +54,7 @@ void acseg_index_fix(acseg_index_t *acseg_index);
 
 void acseg_destory_index(acseg_index_t **acseg_index);
 
-acseg_result_t * acseg_full_seg(acseg_index_t *acseg_index, acseg_str_t *text);
+acseg_result_t * acseg_full_seg(acseg_index_t *acseg_index, acseg_str_t *text,int max_seek);
 
 void acseg_destory_result(acseg_result_t **result);
 
