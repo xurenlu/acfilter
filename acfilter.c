@@ -335,7 +335,7 @@ PHP_FUNCTION(acfilter_check_text)
 		phrase = (acseg_str_t *) result_item->data; 
 		result_item = result_item->next;
 		strncat(ret,phrase->data,phrase->len);
-		strcat(ret," ");
+		strcat(ret,"|");
 	}
 	acseg_destory_result(&seg_result);
 	//RETURN_TRUE;
