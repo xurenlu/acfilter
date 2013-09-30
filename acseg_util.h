@@ -26,7 +26,7 @@ void acseg_copy_str_t(acseg_str_t *dest, acseg_str_t *src, mc_collector_t **mc);
 
 unsigned int get_word_size(const char *word, unsigned int word_len);
 
-inline unsigned int get_mblen(u_char ch);
+ unsigned int get_mblen(u_char ch);
 
 uint64_t ord_utf8_wch(const char *wch_str);
 

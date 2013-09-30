@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 	text.data = buf;
 
 	//print_time("start seg\n");
-	seg_result = acseg_full_seg(acseg_index, &text);
+	seg_result = acseg_full_seg(acseg_index, &text,2);
 	//print_time("end seg\n");
 
 	acseg_str_t *phrase;

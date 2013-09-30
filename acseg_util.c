@@ -41,8 +41,7 @@ get_word_size(const char *word, unsigned int word_len)
 	return size;
 }
 
-inline unsigned int 
-get_mblen(u_char ch)
+ unsigned int get_mblen(u_char ch)
 {
 	return mblen_table_utf8[ch];
 }

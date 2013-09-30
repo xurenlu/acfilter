@@ -299,7 +299,7 @@ PHP_FUNCTION(acfilter_check_text)
 	int argc = ZEND_NUM_ARGS();
 	int acindex_id = -1;
 	int text_len;
-    int max_seek=0;
+    long  max_seek=0;
 	zval *acindex = NULL;
 	acseg_index_t * acseg_index;
 
