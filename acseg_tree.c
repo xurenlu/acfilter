@@ -81,7 +81,6 @@ void print_atom(acseg_str_t *atom){
 	memset(p, 0, atom->len + 1);
 	new_atom = (char *) p;
 	memcpy(p, atom->data, atom->len);
-	printf("atom=%s\t%d\n", new_atom, atom->len);
 }
 
 acseg_index_t *
@@ -370,12 +369,9 @@ acseg_full_seg(acseg_index_t *acseg_index, acseg_str_t *text,int max_seek)
         while(
                 tmp_s_index_item ==NULL &&
                 seeks<max_seek && current_pos <(text->len)){
-            printf("search : seeks :%d\n",seeks);
             atom2.data = &(text->data[current_pos+tmp_atom.len]);
             atom2.len = get_mblen( ((u_char) atom2.data[0]) );
-            printf("atom2:\n");
             print_atom(&atom2);
-            printf("\n");
 		    tmp_s_index_item = find_child_index_item(index_item, &atom2);
             seeks++;
             if(tmp_s_index_item!=NULL){
